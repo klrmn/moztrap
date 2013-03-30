@@ -22,6 +22,10 @@ def percentage(val):
     really is exactly that.
 
     """
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.debug(type(val))
+    logger.debug(val)
     val = val * 100
     if val > 50:
         val = math.floor(val)

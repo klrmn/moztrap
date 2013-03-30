@@ -16,6 +16,9 @@ from ..core.models import ProductVersion
 from ..environments.models import Environment, HasEnvironmentsModel
 from ..library.models import CaseVersion, Suite, CaseStep
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 
 class Run(MTModel, TeamModel, DraftStatusModel, HasEnvironmentsModel):
@@ -320,6 +323,7 @@ class Run(MTModel, TeamModel, DraftStatusModel, HasEnvironmentsModel):
             runcaseversion__run=self).values(
             "runcaseversion", "environment").distinct().count()
 
+        logger.debug("total: %s, completed: %s" % (total, completed))
         try:
             return float(completed) / total
         except ZeroDivisionError:
